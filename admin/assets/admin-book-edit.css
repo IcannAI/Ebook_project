@@ -1,0 +1,135 @@
+ body {
+            background: linear-gradient(135deg, #008c5f, #004d33);
+            min-height: 100vh;
+            margin: 0;
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            color: white;
+        }
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .menu {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .menu a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .menu .logout-btn {
+            background: #dc3545;
+            padding: 8px 18px !important;
+            border-radius: 8px;
+        }
+        .menu .logout-btn:hover {
+            background: #c82333 !important;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            bottom: 0;
+            width: 220px;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
+            padding-top: 20px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 15px 25px;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .main {
+            margin-left: 220px;
+            padding: 90px 40px 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            color: #333;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #008c5f;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #008c5f;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #ddd;
+            border-radius: 12px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #008c5f;
+            box-shadow: 0 0 10px rgba(0,140,95,0.2);
+        }
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background: #008c5f;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #006b44;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,140,95,0.4);
+        }

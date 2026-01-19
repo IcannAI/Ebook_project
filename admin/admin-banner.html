@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>推播管理 - 微笑書店 後台</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 此頁 CSS -->
+    <link rel="stylesheet" href="./assets/admin-banner.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <!-- 公用 JS -->
+    <script src="./assets/admin.js"></script>
+
+    <!-- 此頁 JS -->
+    <script src="./assets/admin-banner.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店 後台管理</div>
+    <div class="menu">
+        <a href="admin-dashboard.html">首頁</a>
+        <a href="admin-book-list.html">書籍管理</a>
+        <a href="admin-order-list.html">訂單查詢</a>
+        <a href="admin-banner.html">推播管理</a>
+        <a href="#" class="logout-btn" onclick="forceAdminLogout()">登出</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container form-box">
+        <h2>推播廣告管理</h2>
+
+        <!-- 新增推播 -->
+        <h3>新增推播圖片</h3>
+        <input type="text" id="bannerTitle" placeholder="推播標題">
+        <input type="text" id="bannerLink" placeholder="點擊後連結網址(可選)">
+        <input type="file" id="bannerImage">
+        <button onclick="uploadBanner()" style="margin-top:15px;">新增推播</button>
+
+        <hr style="margin:30px 0;">
+
+        <!-- 推播列表 -->
+        <h3>現有推播列表</h3>
+        <div id="bannerList"></div>
+    </div>
+</div>
+
+</body>
+</html>

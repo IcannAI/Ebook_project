@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>後台首頁 - 微笑書店</title>
+
+    <!-- 公用樣式 -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 後台首頁專用 CSS -->
+    <link rel="stylesheet" href="./assets/admin-dashboard.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <!-- 後台首頁專用 JS -->
+    <script src="./assets/admin-dashboard.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店 後台管理系統</div>
+    <div class="menu">
+        <a href="#" id="logoutBtn">登出</a>
+    </div>
+</div>
+
+<div class="main container">
+    <h2 class="dashboard-title">後台管理系統</h2>
+    <p class="dashboard-welcome">歡迎回來，<span id="adminName">管理員</span>！</p>
+
+    <!-- 功能導航區 -->
+    <div class="dashboard-nav">
+        <a href="admin-book-list.html" class="btn btn-primary">書籍管理</a>
+        <a href="admin-order-list.html" class="btn btn-primary">訂單管理</a>
+        <a href="../user/user-profile.html" class="btn btn-success">會員管理</a>
+        <a href="admin-admin-list.html" class="btn btn-primary">員工管理</a>
+    </div>
+
+    <!-- 推播管理區 -->
+    <div class="banner-section">
+        <h2>推播廣告管理</h2>
+        
+        <div class="banner-upload">
+            <h3>新增推播</h3>
+            <input type="text" id="bannerTitle" placeholder="推播標題">
+            <input type="text" id="bannerLink" placeholder="點擊後連結網址（可選）">
+            <input type="file" id="bannerImage" accept="image/*">
+            <button class="btn btn-success" id="uploadBannerBtn">新增推播</button>
+        </div>
+
+        <hr>
+
+        <h3>現有推播列表</h3>
+        <div id="bannerList">載入中...</div>
+    </div>
+</div>
+
+</body>
+</html>

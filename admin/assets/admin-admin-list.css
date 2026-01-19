@@ -1,0 +1,149 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+    color: white;
+}
+
+.header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.menu {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.menu .logout-btn {
+    background: #dc3545;
+    padding: 8px 18px !important;
+    border-radius: 8px;
+}
+
+.menu .logout-btn:hover {
+    background: #c82333 !important;
+}
+
+.main {
+    margin-left: 0;
+    padding: 90px 40px 40px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.btn-add-admin {
+    background: #008c5f;
+    color: white;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,140,95,0.4);
+    transition: all 0.3s;
+    margin-bottom: 25px;
+}
+
+.btn-add-admin:hover {
+    background: #006b44;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,140,95,0.5);
+}
+
+.card {
+    background: white;
+    color: #333;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #008c5f;
+    color: white;
+    padding: 16px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.table tr:hover {
+    background: #f8fffc;
+}
+
+.btn-edit {
+    background: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.btn-edit:hover { background: #0056b3; }
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-delete:hover { background: #c82333; }

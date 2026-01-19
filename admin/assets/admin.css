@@ -1,0 +1,209 @@
+/* ===============================
+   綠色主題、白色卡片、簡潔布局
+================================ */
+
+/* 全域 */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    font-family: "Segoe UI", "微軟正黑體";
+}
+
+a {
+    text-decoration: none;
+    color: #007744;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ===============================
+   Header
+================================ */
+.header {
+    background: #008c5f;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header .menu a {
+    color: white;
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.header .menu a:hover {
+    text-decoration: underline;
+}
+
+/* ===============================
+   Banner
+================================ */
+.banner {
+    width: 100%;
+    height: 260px;
+    background: url('/images/banner-default.jpg') center/cover no-repeat;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.banner-area {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.banner-img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+
+/* ===============================
+   搜尋區
+================================ */
+.search-area {
+    text-align: center;
+    padding: 20px;
+}
+
+.search-area input {
+    width: 350px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.search-area button {
+    padding: 10px 15px;
+    background: #008c5f;
+    color: white;
+    border: none;
+}
+
+/* ===============================
+   書卡
+================================ */
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 15px;
+}
+
+.book-card {
+    width: 170px;
+    background: white;
+    border-radius: 6px;
+    margin: 10px;
+    box-shadow: 0 2px 6px #ccc;
+    padding: 10px;
+}
+
+.book-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.book-card .title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.book-card button {
+    margin-top: 8px;
+    width: 100%;
+    padding: 7px;
+    background: #009966;
+    border: none;
+    color: white;
+}
+
+/* ===============================
+   Login / Register Form
+================================ */
+.form-box {
+    width: 350px;
+    background: white;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 0 8px #bbb;
+}
+
+.form-box h2 {
+    text-align: center;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+}
+
+.form-box button {
+    width: 100%;
+    padding: 12px;
+    background: #008c5f;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+/* ===============================
+   購物車
+================================ */
+.cart-row {
+    background: white;
+    padding: 12px;
+    margin: 10px auto;
+    width: 80%;
+    border-radius: 6px;
+    box-shadow: 0 0 5px #bbb;
+}
+
+/* ===============================
+   會員中心
+================================ */
+.user-info, .order-item {
+    background: white;
+    padding: 15px;
+    width: 80%;
+    margin: 10px auto;
+    border-radius: 6px;
+    box-shadow: 0 0 5px #bbb;
+}
+
+/* 補充共用樣式 */
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.text-center { text-align: center; }
+.btn { padding: 10px 20px; background: #008c5f; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.btn:hover { background: #006b44; }
+.btn-sm { padding: 6px 12px; font-size: 14px; }
+.table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+.table th, .table td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+.table th { background: #f0f0f0; }
+.text-right { text-align: right; }
+.mt-20 { margin-top: 20px; }
+.d-flex { display: flex; gap: 10px; align-items: center; }

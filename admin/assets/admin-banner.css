@@ -1,0 +1,129 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+    color: white;
+}
+
+.header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.menu {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.menu .logout-btn {
+    background: #dc3545;
+    padding: 8px 18px !important;
+    border-radius: 8px;
+}
+
+.menu .logout-btn:hover {
+    background: #c82333 !important;
+}
+
+.main {
+    margin-left: 0;
+    padding: 90px 40px 40px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2, h3 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.form-box {
+    background: white;
+    color: #333;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+}
+
+input[type="text"], input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    background: #008c5f;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-right: 10px;
+}
+
+button:hover {
+    background: #006b44;
+}
+
+.button-danger {
+    background: #dc3545;
+}
+
+.button-danger:hover {
+    background: #c82333;
+}
+
+.cart-row {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-row img {
+    width: 120px;
+    height: 60px;
+    border-radius: 4px;
+}

@@ -1,0 +1,35 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.register-box {
+    width: 450px;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.register-title {
+    color: #008c5f;
+}
+
+.required {
+    color: red;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.back-login-link {
+    color: #008c5f;
+    text-decoration: underline;
+}

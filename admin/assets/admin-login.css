@@ -1,0 +1,39 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+}
+
+.login-box {
+    width: 420px;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.link {
+    color: #008c5f;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* 按鈕樣式 */
+#loginBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}

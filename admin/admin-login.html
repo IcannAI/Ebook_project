@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>後台登入 - 微笑書店</title>
+
+    <!-- 公用樣式 -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 專用 CSS -->
+    <link rel="stylesheet" href="./assets/admin-login.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <!-- 專用 JS -->
+    <script src="./assets/admin-login.js" defer></script>
+</head>
+<body>
+<div class="login-box">
+    <h2 class="text-center">微笑書店 後台管理系統</h2>
+    
+    <div class="form-group">
+        <label>帳號</label>
+        <input type="text" id="account" class="form-control" placeholder="請輸入帳號" required>
+    </div>
+    
+    <div class="form-group">
+        <label>密碼</label>
+        <input type="password" id="password" class="form-control" placeholder="請輸入密碼" required>
+    </div>
+    
+    <button class="btn btn-primary" id="loginBtn">登入</button>
+    
+    <div class="text-center mt-20">
+        還沒有帳號？ <span class="link" id="registerLink">立即註冊</span>
+    </div>
+</div>
+</body>
+</html>

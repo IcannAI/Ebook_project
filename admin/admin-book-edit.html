@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>編輯書籍 - 微笑書店 後台</title>
+
+    <!-- 全站共用 -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 本頁 CSS -->
+    <link rel="stylesheet" href="./assets/admin-book-edit.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+    
+    <!-- 全站共用 JS -->
+    <script src="./assets/admin.js"></script>
+
+    <!-- 本頁 JS -->
+    <script src="./assets/admin-book-edit.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店 後台管理</div>  <!-- 修正 clas... → class="logo"，但原檔已正確 -->
+    <div class="menu">
+        <a href="admin-dashboard.html">首頁</a>
+        <a href="admin-book-list.html">書籍管理</a>
+        <a href="admin-order-list.html">訂單查詢</a>
+        <a href="admin-banner.html">推播管理</a>
+        <a href="#" class="logout-btn" onclick="forceAdminLogout()">登出</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <h2 id="pageTitle">編輯書籍</h2>
+
+        <!-- 書籍編輯表單 -->
+        <form id="bookForm">
+            <input type="hidden" id="bookId"> <!-- 編輯模式時填入 ID -->
+
+            <div class="form-group">
+                <label>書名 <span style="color:red;">*</span></label>
+                <input type="text" id="title" required>
+            </div>
+
+            <div class="form-group">
+                <label>ISBN</label>
+                <input type="text" id="isbn">
+            </div>
+
+            <div class="form-group">
+                <label>出版社</label>
+                <select id="publisherId" required></select> <!-- 動態載入 -->
+            </div>
+
+            <div class="form-group">
+                <label>子分類</label>
+                <select id="subCategoryId" required></select>
+            </div>
+
+            <div class="form-group">
+                <label>出版日期</label>
+                <input type="date" id="publishDate">
+            </div>
+
+            <div class="form-group">
+                <label>價格 <span style="color:red;">*</span></label>
+                <input type="number" step="0.01" id="price" required>
+            </div>
+
+            <div class="form-group">
+                <label>庫存 <span style="color:red;">*</span></label>
+                <input type="number" id="stock" required>
+            </div>
+
+            <div class="form-group">
+                <label>折扣係數（例如 0.8 = 8折，預設 1.0）</label>
+                <input type="number" step="0.01" min="0.01" max="1" id="discount" value="1.0">
+            </div>
+
+            <div class="form-group">
+                <label>描述</label>
+                <textarea id="description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>封面圖片</label>
+                <input type="file" id="coverImage" accept="image/*">
+                <img id="previewImage" style="max-width:200px; margin-top:10px;" src="">
+            </div>
+
+            <div class="form-group">
+                <label>狀態</label>
+                <select id="status">
+                    <option value="1">上架</option>
+                    <option value="0">下架</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="saveBtn">儲存書籍</button>
+        </form>
+        
+    </div>
+</div>
+
+</body>
+</html>

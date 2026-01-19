@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>管理員帳號管理 - 微笑書店 後台</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 此頁的 CSS -->
+    <link rel="stylesheet" href="./assets/admin-admin-list.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <!-- 公用 JS -->
+    <script src="./assets/admin.js"></script>
+
+    <!-- 此頁的 JS -->
+    <script src="./assets/admin-admin-list.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店 後台管理</div>
+    <div class="menu">
+        <a href="admin-dashboard.html">首頁</a>
+        <a href="admin-book-list.html">書籍管理</a>
+        <a href="admin-order-list.html">訂單查詢</a>
+        <a href="admin-banner.html">推播管理</a>
+        <a href="#" class="logout-btn" onclick="forceAdminLogout()">登出</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <h2>管理員帳號管理</h2>
+
+        <button class="btn-add-admin" onclick="addAdmin()">新增管理員帳號</button>
+
+        <div class="card">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>帳號</th>
+                    <th>姓名</th>
+                    <th>Email</th>
+                    <th>狀態</th>
+                    <th>註冊時間</th>
+                    <th width="180">操作</th>
+                </tr>
+                </thead>
+                <tbody id="adminBody">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

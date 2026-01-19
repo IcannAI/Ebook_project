@@ -1,0 +1,68 @@
+/* ------------------ Dashboard Layout ------------------ */
+.dashboard-title {
+    text-align:center;
+    color:#008c5f;
+    margin-bottom:10px;
+}
+
+.dashboard-welcome {
+    text-align:center;
+    color:#667;
+    margin-bottom:30px;
+}
+
+.dashboard-nav {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.dashboard-nav .btn {
+    min-width: 180px;
+    margin: 10px;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Banner Section */
+.banner-section {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-top: 30px;
+}
+
+.banner-upload input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.banner-upload input[type="file"] {
+    margin:10px 0;
+}
+
+.banner-upload button {
+    margin-top: 10px;
+}
+
+.cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 5px solid #008c5f;
+}
+
+.button-danger {
+    background: #e74c3c !important;
+    color: white;
+}

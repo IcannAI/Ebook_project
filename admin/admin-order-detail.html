@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單明細管理 - 微笑書店後台</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 專用 CSS -->
+    <link rel="stylesheet" href="./ssets/admin-order-detail.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <!-- 專用 JS -->
+    <script src="./assets/admin-order-detail.js" defer></script>
+</head>
+<body>
+<div class="header">
+    <div class="logo">微笑書店 後台管理</div>
+    <div class="menu">
+        <a href="admin-dashboard.html">首頁</a>
+        <a href="admin-book-list.html">書籍管理</a>
+        <a href="admin-order-list.html">訂單管理</a>
+        <a href="admin-banner.html">推播管理</a>
+        <a href="admin-admin-list.html">管理員帳號</a>
+        <a href="#" onclick="logout()" style="color:white;">登出</a>
+    </div>
+</div>
+
+<div class="main container">
+    <h2>訂單明細管理</h2>
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="openAddDetailModal()">新增明細</button>
+        <button class="btn btn-primary" onclick="loadDetails()">重新整理</button>
+        <button class="btn btn-primary" onclick="exportDetailCSV()">匯出明細報表 (CSV)</button>
+    </div>
+
+    <div class="card">
+        <h3>訂單編號：<strong id="orderIdDisplay"></strong></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>書籍ID</th>
+                    <th>數量</th>
+                    <th>單價</th>
+                    <th>小計</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="detailBody"></tbody>
+        </table>
+        <div class="total-amount">
+            總金額：<span id="totalAmount">0.00</span> 元
+        </div>
+    </div>
+</div>
+
+<!-- 新增/修改明細 Modal -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3 id="modalTitle">新增訂單明細</h3>
+        <form id="detailForm">
+            <input type="hidden" id="detailId">
+            <div class="form-group">
+                <label>書籍ID (book_id)</label>
+                <input type="number" id="bookId" required placeholder="請輸入書籍ID">
+            </div>
+            <div class="form-group">
+                <label>數量</label>
+                <input type="number" id="quantity" min="1" value="1" required>
+            </div>
+            <div class="form-group">
+                <label>當時單價 (price_at_moment)</label>
+                <input type="number" step="0.01" id="priceAtMoment" required>
+            </div>
+            <div class="form-group">
+                <label>小計 (自動計算)</label>
+                <input type="text" id="subtotal" disabled>
+            </div>
+            <button type="button" class="btn btn-primary save-btn" onclick="saveDetail()">儲存明細</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

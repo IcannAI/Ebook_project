@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單管理 - 微笑書店後台</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/admin.css">
+
+    <!-- 專用 CSS -->
+    <link rel="stylesheet" href="./assets/admin-order-list.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <!-- 專用 JS -->
+    <script src="./assets/admin-order-list.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店 後台管理</div>
+    <div class="menu">
+        <a href="admin-dashboard.html">首頁</a>
+        <a href="admin-book-list.html">書籍管理</a>
+        <a href="admin-order-list.html">訂單管理</a>
+        <a href="admin-banner.html">推播管理</a>
+        <a href="admin-admin-list.html">管理員帳號</a>
+        <a href="#" onclick="logout()" style="color:white;">登出</a>
+    </div>
+</div>
+
+<div class="main container">
+    <h2>訂單管理</h2>
+
+    <!-- 搜尋區 -->
+    <div class="card search-card">
+        <h4>搜尋訂單</h4>
+        <div class="search-fields">
+            <label>開始日期：</label>
+            <input type="date" id="startDate">
+
+            <label>結束日期：</label>
+            <input type="date" id="endDate">
+
+            <label>狀態：</label>
+            <select id="searchStatus">
+                <option value="">全部</option>
+                <option value="0">0 - 待付款</option>
+                <option value="1">1 - 已付款</option>
+                <option value="2">2 - 出貨中</option>
+                <option value="3">3 - 已完成</option>
+            </select>
+
+            <label>訂單編號：</label>
+            <input type="number" id="searchOrderId">
+
+            <button class="btn btn-primary" onclick="loadOrders()">查詢</button>
+        </div>
+    </div>
+
+    <!-- 功能按鈕 -->
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="openAddModal()">新增訂單</button>
+        <button class="btn btn-primary" onclick="loadOrders()">重新整理</button>
+        <button class="btn btn-primary" onclick="exportCSV()">匯出報表 (CSV)</button>
+    </div>
+
+    <!-- 表格 -->
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>訂單編號</th>
+                    <th>會員ID</th>
+                    <th>配送ID</th>
+                    <th>總金額</th>
+                    <th>狀態</th>
+                    <th>建立時間</th>
+                    <th>更新時間</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="orderBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 新增/修改訂單 Modal -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3 id="modalTitle">新增訂單</h3>
+        <form id="orderForm">
+            <div class="form-group">
+                <label>會員 ID</label>
+                <input type="number" id="memberId" required>
+            </div>
+            <div class="form-group">
+                <label>配送資訊 ID</label>
+                <input type="number" id="shippingInfoId" required>
+            </div>
+            <div class="form-group">
+                <label>總金額</label>
+                <input type="number" step="0.01" id="totalAmount" required>
+            </div>
+            <div class="form-group">
+                <label>狀態</label>
+                <select id="status">
+                    <option value="0">0 - 待付款</option>
+                    <option value="1">1 - 已付款</option>
+                    <option value="2">2 - 出貨中</option>
+                    <option value="3">3 - 已完成</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary save-btn" onclick="saveOrder()">儲存訂單</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

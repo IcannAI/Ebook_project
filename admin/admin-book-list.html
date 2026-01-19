@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>書籍管理 - 微笑書店 後台</title>
+
+    <link rel="stylesheet" href="./assets/admin.css">
+    <link rel="stylesheet" href="./assets/admin-book-list.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- 公用 JS（全域管理員登入管理） -->
+    <script src="./assets/admin-common.js" defer></script>
+
+    <script src="./assets/admin.js"></script>
+
+    <script src="./assets/admin-book-list.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店 後台管理</div>
+    <div class="menu">
+        <a href="admin-dashboard.html">首頁</a>
+        <a href="admin-book-edit.html">編輯書籍</a>
+        <a href="admin-order-list.html">訂單查詢</a>
+        <a href="admin-banner.html">推播管理</a>
+        <a href="#" class="logout-btn" onclick="forceAdminLogout()">登出</a>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <h2>書籍管理</h2>
+
+        <button class="btn-add-book" onclick="location.href='admin-book-edit.html'">
+            新增書籍
+        </button>
+
+        <div class="card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>書籍ID</th>
+                        <th>書名</th>
+                        <th>作者</th>
+                        <th>價格</th>
+                        <th>庫存</th>
+                        <th>狀態</th>
+                        <th>新增日期</th>
+                        <th width="180">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="bookBody">
+                    <!-- JS 載入 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
