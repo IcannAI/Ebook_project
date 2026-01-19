@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單詳情 - 微笑書店</title>
+
+    <!-- 公用樣式 -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- order-detail.css -->
+    <link rel="stylesheet" href="./assets/order-detail.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用共用 JS（登入/登出/取得 user） -->
+    <script src="./assets/common.js"></script>
+
+    <!-- order-detail.js -->
+    <script src="./assets/order-detail.js" defer></script>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店</div>
+    <div class="menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+        
+
+        <div class="dropdown">
+            <button class="dropdown-btn" id="navUser">帳戶功能</button>
+            <div class="dropdown-content">
+                <button type="button" onclick="location.href='user-profile.html'">個人資料</button>
+                <button type="button" onclick="location.href='shipping-address.html'">配送地址</button>
+                <button type="button" onclick="location.href='order-list.html'">我的訂單</button>
+                <button type="button" onclick="location.href='cart.html'">購物車</button>
+                <div style="height:1px;background:#eee;margin:8px 0;"></div>
+                <button type="button" onclick="logoutUser()" style="color:#c0392b;">登出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="order-box">
+    <div class="order-header">訂單詳細資料</div>
+    <div class="order-body" id="orderContent">
+        <div class="no-data">載入中...</div>
+    </div>
+</div>
+
+</body>
+</html>

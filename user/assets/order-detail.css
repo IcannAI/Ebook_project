@@ -1,0 +1,209 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    color: white;
+}
+
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+
+.menu { display: flex; gap: 20px; align-items: center; }
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.menu a:hover { background: rgba(255,255,255,0.2); }
+
+.dropdown { position: relative; }
+
+.dropdown-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 8px 12px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.dropdown-content a,
+.dropdown-content button {
+    color: #333;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+}
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+    background: #f0f8f4;
+    color: #008c5f;
+}
+
+.dropdown:hover .dropdown-content { display: block; }
+
+/* Order Box */
+.order-box {
+    margin: 90px auto 40px;
+    width: 800px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.order-header {
+    background: #008c5f;
+    color: white;
+    padding: 20px 30px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.order-body { padding: 30px; }
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+    font-size: 15px;
+    color: #333;
+}
+
+.info-item {
+    background: #f9f9f9;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border-left: 4px solid #008c5f;
+}
+
+.info-label {
+    color: #008c5f;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 14.5px;
+}
+
+.table th {
+    background: #f0f8f5;
+    padding: 14px;
+    text-align: left;
+    border-bottom: 3px solid #008c5f;
+    color: #008c5f;
+    font-weight: bold;
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.table tr:hover { background: #f8fffb; }
+
+.total-row {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d03;
+    text-align: right;
+    padding: 20px 0;
+    border-top: 3px double #008c5f;
+}
+
+.btn-group { text-align: center; margin-top: 30px; }
+
+.btn {
+    padding: 12px 24px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.btn-primary { background: #008c5f; }
+.btn-secondary { background: #660; }
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.no-data {
+    text-align: center;
+    color: #888;
+    padding: 40px;
+    font-size: 16px;
+}
+
+.status-tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.status-0 { background: #f39c12; }
+.status-1 { background: #27ae60; }
+.status-2 { background: #2980b9; }
+.status-3 { background: #7f8c8d; }
+.status-4 { background: #c0392b; }
+
+/* 可點擊列效果 */
+.clickable-row {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.clickable-row:hover {
+    background: #e6f9f0;
+}

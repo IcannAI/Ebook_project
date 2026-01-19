@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單完成 - 微笑書店</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/user.css">
+    <link rel="stylesheet" href="./assets/order-success.css">
+    <link rel="stylesheet" href="./assets/order-detail.css"> <!-- 表格樣式 -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- 公用登入檢查 -->
+    <script src="./assets/common.js"></script>
+
+    <!-- 分離後 JS -->
+    <script src="./assets/order-success.js" defer></script>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店</div>
+    <div class="menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+
+        <div class="dropdown">
+            <button class="dropdown-btn">帳戶功能</button>
+            <div class="dropdown-content">
+                <button onclick="location.href='user-profile.html'">個人資料</button>
+                <button onclick="location.href='shipping-address.html'">配送地址</button>
+                <button onclick="location.href='order-list.html'">我的訂單</button>
+                <button onclick="location.href='cart.html'">購物車</button>
+                <div class="dropdown-divider"></div>
+                <button onclick="forceLogout()" style="color:#c0392b;">登出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="success-container">
+    <div class="success-header">
+        <div class="success-icon">Success</div>
+        <h1>訂單成功！</h1>
+        <p>感謝您的購買，我們會盡快出貨</p>
+    </div>
+
+    <div class="success-body" id="successBody">
+        <div class="order-info">
+            <p>載入訂單資訊中，請稍候…</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

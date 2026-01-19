@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>會員登入 - 微笑書店</title>
+
+    <!-- 公用樣式 -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- 登入專用 CSS -->
+    <link rel="stylesheet" href="./assets/login.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域登入管理） -->
+    <script src="./assets/common.js" defer></script>
+
+    <!-- 登入專用 JS -->
+    <script src="./assets/login.js" defer></script>
+</head>
+<body>
+
+<div class="login-box">
+    <div class="logo-title">微笑書店</div>
+    <div class="subtitle">歡迎回來！請登入帳戶</div>
+
+    <h2 class="login-title">會員登入</h2>
+
+    <!-- 訊息提示區域 -->
+    <div id="alertBox" class="alert"></div>
+
+    <div class="form-group">
+        <label>帳號 <span style="color:red;">*</span></label>
+        <input type="text" id="account" placeholder="請輸入帳號" required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label>密碼 <span style="color:red;">*</span></label>
+        <input type="password" id="password" placeholder="請輸入密碼" required>
+    </div>
+
+    <div class="forgot-password">
+        <a href="forgot-password.html">忘記密碼？</a>
+    </div>
+
+    <button class="btn-primary" id="loginBtn">
+        立即登入
+    </button>
+
+    <div class="mt-20 text-center">
+        還沒有帳號？
+        <span class="link" onclick="location.href='register.html'">立即註冊</span>
+    </div>
+
+    <div class="footer-links">
+        <a href="index.html">返回首頁</a>
+        <a href="register.html">加入會員</a>
+    </div>
+</div>
+
+</body>
+</html>

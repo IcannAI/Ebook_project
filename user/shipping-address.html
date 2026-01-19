@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>配送地址管理 - 微笑書店</title>
+
+    <!-- 共用 CSS -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- 此頁專用 CSS -->
+    <link rel="stylesheet" href="./assets/shipping-address.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 共用 JS（登入檢查、登出等） -->
+    <script src="./assets/common.js"></script>
+
+    <!-- 此頁專用 JS -->
+    <script src="./assets/shipping-address.js" defer></script>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="logo"> 微笑書店</div>
+    <div class="menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+        <a href="checkout.html">結帳</a>
+
+        <div class="dropdown">
+            <button class="dropdown-btn">帳戶功能</button>
+            <div class="dropdown-content">
+                <a href="user-profile.html">個人資料</a>
+                <a href="order-list.html">我的訂單</a>
+                <a href="cart.html">購物車</a>
+                <div class="dropdown-line"></div>
+                <button onclick="forceLogout()">登出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="profile-box">
+    <div class="logo-title">微笑書店</div>
+    <div class="subtitle">配送地址管理</div>
+
+    <div class="form-group">
+        <label>地址名稱</label>
+        <input type="text" id="methodName" placeholder="例如：住家、公司、學校">
+    </div>
+
+    <div class="form-group">
+        <label>完整地址 <span style="color:red;">*</span></label>
+        <input type="text" id="address" placeholder="請輸入完整地址">
+    </div>
+
+    <button class="btn-primary" id="saveBtn">新增地址</button>
+
+    <div id="addressList" style="margin-top:30px;"></div>
+
+    <div class="info-text">
+        結帳時可選擇使用哪一筆地址收貨
+    </div>
+</div>
+
+</body>
+</html>

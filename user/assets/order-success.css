@@ -1,0 +1,74 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    color: white;
+}
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+.menu { display: flex; gap: 20px; align-items: center; }
+.menu a { color: white; text-decoration: none; font-weight: bold; font-size: 15px; padding: 8px 12px; border-radius: 8px; transition: 0.3s; }
+.menu a:hover { background: rgba(255,255,255,0.2); }
+
+/* Success Container */
+.success-container {
+    margin: 100px auto 50px;
+    max-width: 900px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+}
+.success-header {
+    background: linear-gradient(135deg, #008c5f, #006b44);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+.success-icon {
+    font-size: 80px;
+    margin-bottom: 15px;
+    animation: bounce 1.8s infinite;
+}
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+.success-header h1 { font-size: 32px; margin: 0 0 10px 0; }
+.success-header p { font-size: 18px; opacity: 0.95; }
+.success-body { padding: 40px; text-align: center; }
+
+/* 訂單資訊 */
+.order-info { background: #f0f8f5; padding: 25px; border-radius: 14px; margin: 25px 0; font-size: 17px; line-height: 1.8; text-align: left; }
+.order-id { font-size: 32px; font-weight: bold; color: #008c5f; letter-spacing: 3px; margin: 15px 0; }
+.info-row { margin: 12px 0; color: #333; }
+.info-label { color: #008c5f; font-weight: bold; margin-right: 8px; }
+
+/* 商品列表表格 */
+.table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+.table th, .table td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+.table th { background: #008c5f; color: white; }
+.table tr:hover { background: #f0f8f5; cursor: pointer; }
+.clickable-row { transition: background 0.3s; }
+.clickable-row:hover { background: #e0f0ea; }
+
+/* Buttons */
+.btn-group { margin-top: 35px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+.btn-success { padding: 16px 34px; font-size: 18px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; min-width: 200px; }
+.btn-primary { background: #008c5f; color: white; }
+.btn-primary:hover { background: #006b44; transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,140,95,0.4); }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-secondary:hover { background: #5a6268; transform: translateY(-4px); }

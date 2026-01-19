@@ -1,0 +1,181 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+}
+
+.header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    color: white;
+}
+
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+
+.menu { display: flex; gap: 20px; align-items: center; }
+
+.menu a { color: white; text-decoration: none; font-weight: bold; font-size: 15px;
+          padding: 8px 12px; border-radius: 8px; transition: 0.3s; }
+
+.menu a:hover { background: rgba(255,255,255,0.2); }
+
+.dropdown { position: relative; }
+
+.dropdown-btn { background: none; border: none; color: white; font-weight: bold;
+                cursor: pointer; font-size: 15px; padding: 8px 12px; }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1;
+    overflow: hidden;
+}
+
+.dropdown-content a, .dropdown-content button {
+    color: #333;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover, .dropdown-content button:hover { background: #f0f8f4; color: #008c5f; }
+
+.dropdown:hover .dropdown-content { display: block; }
+
+.divider { height: 1px; background: #eee; margin: 8px 0; }
+.logout-btn { color: #c0392b; }
+
+.cart-box {
+    margin: 90px auto 40px;
+    width: 950px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.cart-header {
+    background: #008c5f;
+    color: white;
+    padding: 22px 30px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart-body { padding: 30px; }
+
+.table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
+
+.table th {
+    background: #f0f8f5;
+    padding: 16px;
+    text-align: center;
+    border-bottom: 3px solid #008c5f;
+    color: #008c5f;
+    font-weight: bold;
+}
+
+.table td { padding: 14px; text-align: center; border-bottom: 1px solid #eee; vertical-align: middle; }
+
+.table tr:hover { background: #f8fffb; }
+
+.add-form {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.add-input {
+    width: 180px;
+    padding: 10px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.total-box {
+    background: #f0f8f5;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: right;
+    margin: 30px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #d03;
+}
+
+.btn-small { padding: 7px 12px; margin: 0 4px; border: none; border-radius: 8px;
+             cursor: pointer; font-size: 13px; font-weight: bold; color: white; }
+
+.btn-add { background: #27ae60; }
+.btn-remove { background: #c0392b; }
+
+.btn-small:hover { opacity: 0.9; transform: scale(1.05); }
+
+.btn-checkout {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    background: #008c5f;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-checkout:hover { background: #006b44; transform: translateY(-2px); }
+
+.no-data { text-align: center; color: #888; padding: 80px 0; font-size: 17px; }
+
+.add-title { color: #008c5f; font-size: 16px; font-weight: bold; }
+
+/* === 新增加減按鈕 === */
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #008c5f;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.qty-btn:hover {
+    background: #006b44;
+    transform: scale(1.08);
+}
+
+.qty-text {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    font-size: 15px;
+}

@@ -1,0 +1,201 @@
+body {
+    background: linear-gradient(135deg, #008c5f, #004d33);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+}
+
+.header {
+    position: fixed;
+    top:0; left:0; right:0;
+    height:60px;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 0 30px;
+    color:white;
+}
+
+.logo { font-size:24px; font-weight:bold; letter-spacing:2px; }
+
+.menu { display:flex; gap:20px; align-items:center; }
+
+.menu a { color:white; text-decoration:none; font-weight:bold; font-size:15px;
+         padding:8px 12px; border-radius:8px; transition:0.3s; }
+
+.menu a:hover { background: rgba(255,255,255,0.2); }
+
+.dropdown { position: relative; }
+
+.dropdown-btn { background:none; border:none; color:white; font-weight:bold;
+                cursor:pointer; font-size:15px; padding:8px 12px; }
+
+.dropdown-content {
+    display:none;
+    position:absolute;
+    right:0;
+    background:white;
+    min-width:180px;
+    border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    z-index:1;
+    overflow:hidden;
+}
+
+.dropdown-content a, .dropdown-content button {
+    color:#333;
+    padding:12px 16px;
+    width:100%;
+    text-align:left;
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-size:14px;
+    display:block;
+    text-decoration:none;
+}
+
+.dropdown-content a:hover, .dropdown-content button:hover {
+    background:#f0f8f4;
+    color:#008c5f;
+}
+
+.dropdown:hover .dropdown-content { display:block; }
+
+.divider { height:1px; background:#eee; margin:8px 0; }
+.logout-btn { color:#c0392b; }
+
+.checkout-box {
+    margin:90px auto 40px;
+    max-width:650px;
+    background:white;
+    border-radius:16px;
+    box-shadow:0 12px 35px rgba(0,0,0,0.25);
+    overflow:hidden;
+}
+
+.checkout-header {
+    background:#008c5f;
+    color:white;
+    padding:25px 30px;
+    font-size:28px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.checkout-body { padding:45px; }
+
+.section-title {
+    font-size:20px;
+    font-weight:bold;
+    color:#008c5f;
+    margin-bottom:18px;
+    letter-spacing:1px;
+}
+
+.shipping-option {
+    background:#f9f9f9;
+    padding:22px 24px;
+    border-radius:16px;
+    border:3px solid transparent;
+    cursor:pointer;
+    transition: all 0.3s;
+    margin-bottom:16px;
+    position:relative;
+}
+
+.shipping-option:hover {
+    background:#f0f8f4;
+    border-color:#008c5f !important;
+    transform:translateY(-4px);
+    box-shadow:0 10px 30px rgba(0,140,95,0.2);
+}
+
+.shipping-option.selected {
+    border-color:#008c5f !important;
+    background:#f0f8f4 !important;
+    box-shadow:0 10px 30px rgba(0,140,95,0.25);
+}
+
+.shipping-option strong { font-size:21px; color:#008c5f; }
+.shipping-option span { font-size:16px; color:#667; }
+
+.shipping-option::after {
+    content:"Checkmark";
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:28px;
+    color:#008c5f;
+    font-weight:bold;
+    opacity:0;
+    transition:0.3s;
+}
+
+.shipping-option.selected::after { opacity:1; }
+
+#payment {
+    width:100%;
+    padding:18px 20px;
+    font-size:19px;
+    border:2px solid #ddd;
+    border-radius:14px;
+    background:#fff;
+    box-sizing:border-box;
+}
+
+#payment:focus {
+    outline:none;
+    border-color:#008c5f;
+    box-shadow:0 0 15px rgba(0,140,95,0.3);
+}
+
+.total-box {
+    background:#f0f8f5;
+    padding:25px;
+    border-radius:16px;
+    text-align:center;
+    margin:35px 0;
+    font-size:28px;
+    font-weight:bold;
+    color:#d03;
+}
+
+.btn-checkout {
+    width:100%;
+    padding:20px;
+    font-size:22px;
+    background:#008c5f;
+    color:white;
+    border:none;
+    border-radius:16px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:all 0.3s;
+    letter-spacing:2px;
+}
+
+.btn-checkout:hover {
+    background:#006b44;
+    transform:translateY(-4px);
+    box-shadow:0 12px 35px rgba(0,0,0,0.4);
+}
+
+.info-text {
+    font-size:15px;
+    color:#888;
+    margin-top:25px;
+    text-align:center;
+}
+
+#homeAddress {
+    margin-top:15px;
+    padding:16px;
+    font-size:16px;
+    background:#f0f0f0;
+    border-radius:12px;
+}

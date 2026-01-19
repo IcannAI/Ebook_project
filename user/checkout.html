@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>結帳 - 微笑書店</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- 專用 CSS -->
+    <link rel="stylesheet" href="./assets/checkout.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域登入管理） -->
+    <script src="./assets/common.js" defer></script>
+
+    <!-- 專用 JS -->
+    <script src="./assets/checkout.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店</div>
+    <div class="menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+        <div class="dropdown">
+            <button class="dropdown-btn">帳戶功能</button>
+            <div class="dropdown-content">
+                <button type="button" onclick="location.href='user-profile.html'">個人資料</button>
+                <button type="button" onclick="location.href='shipping-address.html'">配送地址</button>
+                <button type="button" onclick="location.href='order-list.html'">我的訂單</button>
+                <button type="button" onclick="location.href='cart.html'">購物車</button>
+                <div class="divider"></div>
+                <button type="button" onclick="forceLogout()" class="logout-btn">登出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="checkout-box">
+    <div class="checkout-header">訂單結帳</div>
+    <div class="checkout-body">
+
+        <!-- 配送方式 -->
+        <div class="form-group">
+            <div class="section-title">請選擇配送方式</div>
+            <div id="shippingOptions">
+                <div class="shipping-option" data-type="home">
+                    <strong>宅配到府</strong><br>
+                    <span>送到您設定的住家地址（運費 $80）</span>
+                </div>
+                <div class="shipping-option" data-type="family">
+                    <strong>全家超商取貨</strong><br>
+                    <span>FamiPort 取貨付款（運費 $60）</span>
+                </div>
+                <div class="shipping-option" data-type="seven">
+                    <strong>7-11 超商取貨</strong><br>
+                    <span>ibon 取貨付款（運費 $60）</span>
+                </div>
+                <div class="shipping-option" data-type="ok">
+                    <strong>萊爾富超商取貨</strong><br>
+                    <span>Hi-Life 取貨付款（運費 $60）</span>
+                </div>
+            </div>
+
+            <input type="hidden" id="shippingType" value="">
+            <input type="text" id="homeAddress" readonly placeholder="載入中..." style="display:none;">
+        </div>
+
+        <!-- 付款方式 -->
+        <div class="form-group">
+            <div class="section-title">請選擇付款方式</div>
+            <select id="payment">
+                <option value="Credit Card">信用卡</option>
+                <option value="ATM">ATM 轉帳</option>
+                <option value="Line Pay">Line Pay</option>
+                <option value="COD">貨到付款</option>
+                <option value="ConvenienceStore" selected>超商代碼繳費</option>
+            </select>
+        </div>
+
+        <div class="total-box">
+            訂單總金額：<span id="total">0</span> 元
+        </div>
+
+        <button class="btn-checkout" onclick="checkout()">
+            確認送出訂單
+        </button>
+
+        <div class="info-text">
+            請選擇配送與付款方式後再送出
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

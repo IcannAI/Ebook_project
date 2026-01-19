@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>商品介紹 | 微笑書店</title>
+    <link rel="stylesheet" href="assets/user.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {background: linear-gradient(135deg, #008c5f, #004d33); min-height:100vh; margin:0; font-family:"Microsoft JhengHei",Arial,sans-serif;}
+        .header {
+            position:fixed;top:0;left:0;right:0;height:60px;background:rgba(0,0,0,0.15);backdrop-filter:blur(10px);
+            z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 30px;color:white; }
+        .logo {font-size:24px;font-weight:bold;letter-spacing:2px;}
+        .menu {display:flex;gap:20px;align-items:center;}
+        .menu a {color:white;text-decoration:none;font-weight:bold;font-size:15px;padding:8px 12px;border-radius:8px;transition:0.3s;}
+        .menu a:hover {background:rgba(255,255,255,0.2);}
+
+        .product-wrap { max-width: 900px; margin: 120px auto 80px; padding: 30px; background:white; border-radius:12px;
+            box-shadow:0 4px 30px rgba(0,0,0,0.1);}
+        .product-top { display:flex; justify-content: center; align-items: flex-start;  gap: 50px; margin-top: 40px; }
+        .product-img { width:350px; height:500px; object-fit:cover; border-radius:8px; box-shadow:0 3px 15px rgba(0,0,0,0.25); }
+        .product-info { margin-top: 60px; }
+        .p-title { font-size:34px; font-weight:bold; margin-bottom:15px; color:#008c5f; }
+        .p-price { font-size:26px; color:#d03; margin:10px 0; font-weight:bold; }
+        .p-info { font-size:20px; margin:6px 0; }
+        .btn-cart { background:#008c5f; color:white; padding:12px 28px; border:none; border-radius:8px; cursor:pointer; 
+            font-size:20px; font-weight:bold; margin-top: 25px; margin-left: auto; display: block; }
+        .btn-cart:hover { background:#006b44; }
+        .section-sub { margin-top:40px; font-size:25px; font-weight:bold; color:#008c5f; border-bottom:2px solid #008c5f; 
+            padding-bottom:10px; margin-left: 15px; }
+        .description { padding:20px; font-size:18px; line-height:1.7; white-space:pre-wrap; }
+</style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">微笑書店</div>
+        <div class="menu">
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+        <a href="#" onclick="forceLogin()">登入</a>
+        </div>
+    </div>
+
+<div class="product-wrap" id="productContainer">
+    讀取中...
+</div>
+
+<script>
+(async function () {
+    const id = new URLSearchParams(location.search).get("id");
+    if (!id) {
+        $("#productContainer").html("<h2>無效的商品 ID</h2>");
+        return;
+    }
+
+    // API讀取書籍資料
+    const res = await fetch(`http://localhost:8080/api/books/${id}`);
+    if (!res.ok) {
+        $("#productContainer").html("<h2>找不到此書籍</h2>");
+        return;
+    }
+    const b = await res.json();
+
+    // 封面：本地資料夾 ../images/books/{cover_image}
+    const imgSrc = `images/books/${b.coverImage || "default.jpg"}`;
+
+    $("#productContainer").html(`
+    <div class="product-top">
+        <img class="product-img" src="${imgSrc}" alt="${b.title}">
+        <div>
+            <div class="p-title">${b.title}</div>
+            <div class="p-price">NT$ ${b.price}</div>
+            <div class="p-info"><b>ISBN：</b>${b.isbn}</div>
+            <div class="p-info"><b>出版日期：</b>${b.publishDate || "未提供"}</div>
+            <div class="p-info"><b>庫存：</b>${b.stock}</div>
+
+            <button class="btn-cart" onclick="addToCart(${b.id})">加入購物車</button>
+        </div>
+    </div>
+    <div class="section-sub">內容介紹</div>
+    <div class="description">${b.description || "無介紹內容"}</div>
+`);
+
+})();
+
+// 加入購物車
+    function addToCart(bookId) {
+    $.ajax({
+        url: "http://localhost:8080/api/members/cart",
+        type: "POST",
+        contentType: "application/json",
+        xhrFields: { withCredentials: true }, 
+        crossDomain: true,                    
+        data: JSON.stringify({
+            bookId: bookId,
+            quantity: 1
+        }),
+        success: function () {
+            alert("已加入購物車！");
+        },
+        error: function (xhr) {
+            if (xhr.status === 401 || xhr.status === 403) {
+                alert("請先登入會員！");            
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1000);
+                return;
+            }
+            alert("加入購物車失敗，請稍後再試");
+        }
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>會員註冊 - 微笑書店</title>
+
+    <!-- 公用樣式 -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- 註冊頁專用樣式 -->
+    <link rel="stylesheet" href="./assets/register.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用登入檢查 -->
+    <script src="./assets/common.js"></script>
+
+    <!-- 註冊頁 JS -->
+    <script src="./assets/register.js" defer></script>
+</head>
+<body>
+
+<div class="register-box">
+    <div class="logo-title">微笑書店</div>
+    <div class="subtitle">加入會員享受專屬優惠</div>
+
+    <h2 class="register-title">會員註冊</h2>
+
+    <!-- 訊息提示區域 -->
+    <div id="alertBox" class="alert"></div>
+
+    <div class="form-group">
+        <label>帳號 <span class="required">*</span></label>
+        <input type="text" id="account" placeholder="4-20位英數字" required>
+        <div class="helper-text">只能使用英文字母和數字</div>
+        <div id="accountError" class="error-message"></div>
+    </div>
+
+    <div class="form-group">
+        <label>密碼 <span class="required">*</span></label>
+        <input type="password" id="password" placeholder="至少8位" required>
+        <div class="password-strength">
+            <div id="passwordStrengthBar" class="password-strength-bar"></div>
+        </div>
+        <div class="helper-text">建議使用英文、數字和特殊符號組合</div>
+        <div id="passwordError" class="error-message"></div>
+    </div>
+
+    <div class="form-group">
+        <label>確認密碼 <span class="required">*</span></label>
+        <input type="password" id="password2" placeholder="再次輸入密碼" required>
+        <div id="password2Error" class="error-message"></div>
+    </div>
+
+    <div class="form-group">
+        <label>姓名 <span class="required">*</span></label>
+        <input type="text" id="name" placeholder="請輸入姓名" required>
+        <div id="nameError" class="error-message"></div>
+    </div>
+
+    <div class="form-group">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="example@email.com" required>
+        <div id="emailError" class="error-message"></div>
+    </div>
+
+    <div class="form-group">
+        <label>手機號碼</label>
+        <input type="text" id="phone" placeholder="09xxxxxxxx">
+        <div class="helper-text">用於訂單通知和客服聯繫</div>
+        <div id="phoneError" class="error-message"></div>
+    </div>
+
+    <button class="btn-primary" id="registerBtn">立即註冊</button>
+
+    <div class="mt-20 text-center">
+        已經有帳號？
+        <span class="link" onclick="location.href='login.html'">直接登入</span>
+    </div>
+
+    <div class="footer-link">
+        <a href="index.html">返回首頁</a>
+    </div>
+</div>
+
+</body>
+</html>

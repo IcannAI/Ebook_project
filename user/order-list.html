@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <title>我的訂單 - 微笑書店</title>
+
+    <!-- 公用樣式 -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- 拆分後 order-list.css -->
+    <link rel="stylesheet" href="./assets/order-list.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 共用登入判斷、logout 等 -->
+    <script src="./assets/common.js"></script>
+
+    <!-- 拆分後 order-list.js -->
+    <script src="./assets/order-list.js" defer></script>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店</div>
+
+    <div class="menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+        
+
+        <div class="dropdown">
+            <button class="dropdown-btn">帳戶功能</button>
+            <div class="dropdown-content">
+                <button onclick="location.href='user-profile.html'">個人資料</button>
+                <button onclick="location.href='shipping-address.html'">配送地址</button>
+                <button onclick="location.href='order-list.html'">我的訂單</button>
+                <button onclick="location.href='cart.html'">購物車</button>
+                <div class="dropdown-divider"></div>
+                <button onclick="forceLogout()" style="color:#c0392b;">登出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h1 class="page-title">我的訂單</h1>
+
+    <div class="filter-bar">
+        <div>
+            <label><strong>訂單狀態篩選：</strong></label>
+            <select id="statusFilter">
+                <option value="-1">全部訂單</option>
+                <option value="0">待付款</option>
+                <option value="1">已付款</option>
+                <option value="2">出貨中</option>
+                <option value="3">已完成</option>
+                <option value="4">已取消</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="orderList">
+        <div class="no-data">載入中…</div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>個人資料 - 微笑書店</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 共用 JS（登入檢查、登出等） -->
+    <script src="./assets/common.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/user.css">
+    <link rel="stylesheet" href="./assets/user-profile.css">
+
+    <!-- JS -->
+    <script src="./assets/user-profile.js" defer></script>
+</head>
+<body>
+
+<!-- 頂部導航列 -->
+<div class="header">
+    <div class="logo">微笑書店</div>
+    <nav class="nav-menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="cart.html">購物車</a>
+        <a href="order-list.html">我的訂單</a>
+        <a href="#" onclick="logoutAndRedirect()">登出</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="profile-card">
+        <div class="card-header"><h1>個人資料管理</h1></div>
+        <div class="card-body">
+
+            <div id="alertBox" class="alert"></div>
+
+            <div id="loadingIndicator" class="loading">
+                <div class="spinner"></div>載入中...
+            </div>
+
+            <div id="profileForm" style="display:none;">
+                <!-- 基本資料 -->
+                <div class="form-group"><label>會員 ID</label><input type="text" id="id" readonly></div>
+                <div class="form-group"><label>帳號</label><input type="text" id="account" readonly></div>
+
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input type="text" id="name" placeholder="請輸入姓名">
+                    <div id="nameError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="請輸入 Email">
+                    <div id="emailError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>電話</label>
+                    <input type="text" id="phone" placeholder="選填">
+                    <div class="helper-text">用於訂單通知和客服聯繫</div>
+                    <div id="phoneError" class="error-message"></div>
+                </div>
+
+                <button class="btn btn-primary" id="saveBtn">儲存修改</button>
+
+                <!-- 更改密碼 -->
+                <div class="section-title">新密碼</div>
+
+                <div class="form-group">
+                    <label>新密碼</label>
+                    <input type="password" id="newPassword" placeholder="至少6位">
+                    <div id="newPasswordError" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>確認新密碼</label>
+                    <input type="password" id="newPassword2" placeholder="再次輸入新密碼">
+                    <div id="newPassword2Error" class="error-message"></div>
+                </div>
+
+                <button class="btn btn-secondary" id="pwdBtn">更改密碼</button>
+
+                <!-- 刪除帳號 -->
+                <div class="section-title" style="color:#c0392b;margin-top:40px;">刪除帳號</div>
+                <button class="btn btn-danger" id="deleteBtn">永久刪除帳號</button>
+                <div class="warning-text">注意：刪除帳號後所有資料將無法復原</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

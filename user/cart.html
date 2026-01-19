@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>購物車 - 微笑書店</title>
+
+    <!-- 公用 CSS -->
+    <link rel="stylesheet" href="./assets/user.css">
+
+    <!-- 專用 CSS -->
+    <link rel="stylesheet" href="./assets/cart.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 公用 JS（全域登入管理） -->
+    <script src="./assets/common.js" defer></script>
+
+    <!-- 專用 JS -->
+    <script src="./assets/cart.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">微笑書店</div>
+    <div class="menu">
+        <a href="index.html">首頁</a>
+        <a href="user-profile.html">個人資料</a>
+        <a href="shipping-address.html">地址管理</a>
+        <a href="order-list.html">我的訂單</a>
+
+        <div class="dropdown">
+            <button class="dropdown-btn">帳戶功能</button>
+            <div class="dropdown-content">
+                <button type="button" onclick="location.href='user-profile.html'">個人資料</button>
+                <button type="button" onclick="location.href='shipping-address.html'">配送地址</button>
+                <button type="button" onclick="location.href='order-list.html'">我的訂單</button>
+                <div class="divider"></div>
+                <button type="button" onclick="forceLogout()" class="logout-btn">登出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cart-box">
+    <div class="cart-header">我的購物車</div>
+    <div class="cart-body">
+
+        <!-- 新增商品區塊 -->
+        <div class="add-form">
+            <strong class="add-title">新增商品</strong><br><br>
+            <input type="number" id="newBookId" class="add-input" placeholder="請輸入書籍 ID" min="1">
+            <input type="number" id="newQty" class="add-input" placeholder="數量" value="1" min="1" style="width:100px;">
+            <button class="btn-small btn-add" onclick="addToCart()">加入購物車</button>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>書籍</th>
+                    <th>單價</th>
+                    <th>數量</th>
+                    <th>小計</th>
+                    <th>新增時間</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="cartBody">
+                <tr><td colspan="6" class="no-data">載入中...</td></tr>
+            </tbody>
+        </table>
+
+        <div class="total-box">
+            購物車總金額：<span id="totalAmount">0</span> 元
+        </div>
+
+        <button class="btn-checkout" onclick="location.href='checkout.html'">
+            前往結帳
+        </button>
+    </div>
+</div>
+
+</body>
+</html>
