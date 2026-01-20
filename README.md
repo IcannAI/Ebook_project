@@ -44,31 +44,6 @@
 - Banner 管理
 - 訂單列表 / 訂單詳情 / 狀態變更
 
-## 專案結構
-ebook-project/
-├── backend/
-│   ├── src/main/java/com/demo/ebook/
-│   │   ├── config/          → SecurityConfig, PasswordEncoderConfig
-│   │   ├── controller/      → AuthController, AdminAuthController, BookController...
-│   │   ├── dto/
-│   │   ├── entity/
-│   │   ├── filter/          → JwtAuthenticationFilter
-│   │   ├── repository/
-│   │   ├── service/
-│   │   └── utility/         → JwtUtil
-│   └── pom.xml
-│
-├── frontend/
-│   ├── user/
-│   │   ├── index.html, productpage.html, cart.html, checkout.html...
-│   ├── admin/
-│   │   ├── admin-dashboard.html, admin-book-list.html...
-│   ├── assets/              → css, js
-│   └── books/               → image1.png ~ image30.png
-│
-└── README.md
-
-
 ## 快速啟動
 
 ### 後端
@@ -77,7 +52,7 @@ ebook-project/
 3. 執行 `mvn spring-boot:run` 或使用 IDE 啟動 `DemoApplication`
 
 ### 前端
-直接用瀏覽器開啟 `frontend/user/index.html`（建議使用 Live Server 插件）
+直接用瀏覽器開啟 `frontend/user/index.html`
 
 API 預設位址：`http://localhost:8080`
 
