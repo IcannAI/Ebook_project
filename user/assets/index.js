@@ -6,40 +6,54 @@ let currentFilter = null; // { type: 'all' | 'subcategory', id: null | subcatego
 
 // ========== 初始化 ==========
 document.addEventListener('DOMContentLoaded', async () => {
-    initializeHeader();
-    initializeBanner();
-    await loadInitialData();
-    updateCartBadge();
+    initializeHeader();       // 導覽列按鈕 & 登入狀態
+    initializeBanner();       // Swiper 輪播
+    await loadInitialData();  // 載入分類與書籍
+    updateCartBadge();        // 購物車數量
 });
 
 // ========== Header 導覽功能 ==========
 function initializeHeader() {
+    const memberAccount = localStorage.getItem('memberAccount');
+    const loginBtn = document.getElementById('loginBtn');
+
+    // 顯示登入使用者帳號（如果已登入）
+    if (loginBtn && memberAccount) {
+        loginBtn.textContent = `登出 (${memberAccount})`;
+        loginBtn.addEventListener('click', handleLogout);
+    } else if (loginBtn) {
+        loginBtn.textContent = '登入';
+        loginBtn.addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+    }
+
     // 個人資料
     const profileBtn = document.getElementById('profileBtn');
     if (profileBtn) {
         profileBtn.addEventListener('click', () => {
             if (isUserLoggedIn()) {
-                window.location.href = 'profile.html';
+                window.location.href = 'user-profile.html';
             } else {
                 showToast('請先登入');
                 setTimeout(() => window.location.href = 'login.html', 1500);
             }
         });
     }
-    
+
     // 配送地址
     const addressBtn = document.getElementById('addressBtn');
     if (addressBtn) {
         addressBtn.addEventListener('click', () => {
             if (isUserLoggedIn()) {
-                window.location.href = 'address.html';
+                window.location.href = 'shipping-address.html';
             } else {
                 showToast('請先登入');
                 setTimeout(() => window.location.href = 'login.html', 1500);
             }
         });
     }
-    
+
     // 購物車
     const cartBtn = document.getElementById('cartBtn');
     if (cartBtn) {
@@ -52,98 +66,84 @@ function initializeHeader() {
             }
         });
     }
-    
+
     // 我的訂單
     const ordersBtn = document.getElementById('ordersBtn');
     if (ordersBtn) {
         ordersBtn.addEventListener('click', () => {
             if (isUserLoggedIn()) {
-                window.location.href = 'orders.html';
+                window.location.href = 'order-list.html';
             } else {
                 showToast('請先登入');
                 setTimeout(() => window.location.href = 'login.html', 1500);
             }
         });
     }
-    
-    // 登入按鈕
-    const loginBtn = document.getElementById('loginBtn');
-    if (loginBtn) {
-        if (isUserLoggedIn()) {
-            loginBtn.textContent = '登出';
-            loginBtn.addEventListener('click', handleLogout);
-        } else {
-            loginBtn.addEventListener('click', () => {
-                window.location.href = 'login.html';
-            });
-        }
-    }
+}
 
-    
-    //核心登入頁
+// ========== 檢查登入狀態 ==========
+function isUserLoggedIn() {
+    return !!localStorage.getItem('authToken');
+}
 
-function loginUser() {
-    const account = $("#account").val().trim();
-    const password = $("#password").val();
+// ========== 登入功能 ==========
+async function loginUser() {
+    const account = document.getElementById('account')?.value.trim();
+    const password = document.getElementById('password')?.value;
+
     if (!account || !password) {
-        showAlert("請輸入帳號和密碼！", "error");
+        showToast("請輸入帳號和密碼！");
         return;
     }
 
-    $.ajax({
-        url: "/api/auth/login",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({ account, password })
-    })
-    .done(response => {
-        showAlert("登入成功！", "success");
-        localStorage.setItem("authToken", response.token);
-        sessionStorage
-
-    // 前端 fetch 範例
-    fetch('http://localhost:8080/api/auth/login', { // 必須完整路徑
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ account: 'your_acc', password: 'your_password' })
-    })
-
-    //補足 isUserLoggedIn 邏輯
-    function isUserLoggedIn() {
-    return localStorage.getItem('authToken') !== null;
-    }
-
-    //對齊 /who 介面呼叫
-    async function checkLoginStatus() {
-    const token = localStorage.getItem('authToken');
-    if (!token) return;
-
     try {
-        const response = await fetch('http://localhost:8080/api/auth/who', {
-            headers: { 'Authorization': `Bearer ${token}` }
+        // 登入 API
+        const loginRes = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ account, password })
         });
-        if (response.status === 401) {
-            handleLogout(); // Token 過期
-        }
-        const userData = await response.json();
-        console.log("當前使用者:", userData);
+
+        if (!loginRes.ok) throw new Error("登入失敗");
+
+        const loginData = await loginRes.json();
+        const token = loginData.token;
+
+        // 存 token
+        localStorage.setItem("authToken", token);
+
+        // 立即呼叫 /api/auth/who 獲取使用者資訊
+        const userRes = await fetch("/api/auth/who", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!userRes.ok) throw new Error("獲取使用者資訊失敗");
+
+        const userData = await userRes.json();
+        localStorage.setItem("memberAccount", userData.account);
+        localStorage.setItem("memberName", userData.name);
+        localStorage.setItem("memberId", userData.id);
+
+        showToast("登入成功！");
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+
     } catch (error) {
-        console.error("驗證失敗", error);
+        console.error(error);
+        showToast("登入失敗，請檢查帳號密碼");
     }
 }
-}
 
-/**
- * 處理登出
- */
+// ========== 登出 ==========
 function handleLogout() {
     if (confirm('確定要登出嗎？')) {
         localStorage.removeItem('authToken');
-        localStorage.removeItem('userId');
+        localStorage.removeItem('memberAccount');
+        localStorage.removeItem('memberName');
+        localStorage.removeItem('memberId');
         showToast('已登出');
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
+        setTimeout(() => window.location.reload(), 1000);
     }
 }
 
@@ -151,23 +151,11 @@ function handleLogout() {
 function initializeBanner() {
     const swiper = new Swiper('.bannerSwiper', {
         loop: true,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        },
+        autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
+        fadeEffect: { crossFade: true },
         speed: 800
     });
 }
@@ -175,27 +163,18 @@ function initializeBanner() {
 // ========== 載入初始資料 ==========
 async function loadInitialData() {
     showLoading(true);
-    
     try {
-        // 並行載入所有資料
         const [categoryTree, books, recommendedBooks] = await Promise.all([
             fetchCategoryTree(),
             fetchAllBooks(),
             fetchRecommendedBooks()
         ]);
-        
+
         allBooks = books;
-        
-        // 渲染分類樹
         renderCategoryTree(categoryTree);
-        
-        // 渲染推薦書籍
         renderRecommendedBooks(recommendedBooks);
-        
-        // 渲染全部書籍（第一頁）
-        currentFilter = { type: 'all', id: null };
         renderAllBooks(1);
-        
+
     } catch (error) {
         console.error('Error loading initial data:', error);
         showToast('載入資料失敗');
@@ -206,205 +185,147 @@ async function loadInitialData() {
 
 // ========== 分類樹渲染 ==========
 function renderCategoryTree(categoryTree) {
-    const categoryTreeContainer = document.getElementById('categoryTree');
-    if (!categoryTreeContainer) return;
-    
-    categoryTreeContainer.innerHTML = '';
-    
+    const container = document.getElementById('categoryTree');
+    if (!container) return;
+    container.innerHTML = '';
     categoryTree.forEach((category, index) => {
-        const categoryItem = createCategoryItem(category, index);
-        categoryTreeContainer.appendChild(categoryItem);
+        container.appendChild(createCategoryItem(category, index));
     });
 }
 
-/**
- * 建立分類項目
- */
 function createCategoryItem(category, index) {
     const categoryItem = document.createElement('div');
     categoryItem.className = 'category-item';
     categoryItem.style.animationDelay = `${index * 0.05}s`;
-    
-    // 主分類
+
     const categoryMain = document.createElement('div');
     categoryMain.className = 'category-main';
-    categoryMain.innerHTML = `
-        <span class="category-name">${category.name}</span>
-        <span class="category-toggle">▸</span>
-    `;
-    
-    // 子分類列表
+    categoryMain.innerHTML = `<span class="category-name">${category.name}</span><span class="category-toggle">▸</span>`;
+
     const subcategoryList = document.createElement('div');
     subcategoryList.className = 'subcategory-list';
-    
-    if (category.subCategories && category.subCategories.length > 0) {
-        category.subCategories.forEach((subcategory) => {
-            const subcategoryItem = document.createElement('div');
-            subcategoryItem.className = 'subcategory-item';
-            subcategoryItem.textContent = subcategory.name;
-            subcategoryItem.dataset.subcategoryId = subcategory.id;
-            
-            // 點擊子分類顯示該分類的書籍
-            subcategoryItem.addEventListener('click', (e) => {
+
+    if (category.subCategories?.length) {
+        category.subCategories.forEach(sub => {
+            const item = document.createElement('div');
+            item.className = 'subcategory-item';
+            item.textContent = sub.name;
+            item.dataset.subcategoryId = sub.id;
+            item.addEventListener('click', e => {
                 e.stopPropagation();
-                handleSubcategoryClick(subcategory.id, subcategory.name);
+                handleSubcategoryClick(sub.id, sub.name);
             });
-            
-            subcategoryList.appendChild(subcategoryItem);
+            subcategoryList.appendChild(item);
         });
     }
-    
-    // 主分類點擊展開/收合
+
     categoryMain.addEventListener('click', () => {
-        const isExpanded = categoryMain.classList.contains('active');
-        
-        // 關閉所有其他分類
-        document.querySelectorAll('.category-main').forEach(item => {
-            item.classList.remove('active');
-        });
-        document.querySelectorAll('.subcategory-list').forEach(list => {
-            list.classList.remove('expanded');
-        });
-        
-        if (!isExpanded) {
+        const expanded = categoryMain.classList.contains('active');
+        document.querySelectorAll('.category-main').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.subcategory-list').forEach(x => x.classList.remove('expanded'));
+        if (!expanded) {
             categoryMain.classList.add('active');
             subcategoryList.classList.add('expanded');
         }
     });
-    
+
     categoryItem.appendChild(categoryMain);
     categoryItem.appendChild(subcategoryList);
-    
     return categoryItem;
 }
 
-/**
- * 處理子分類點擊
- */
+// ========== 子分類點擊 ==========
 async function handleSubcategoryClick(subcategoryId, subcategoryName) {
     showLoading(true);
-    
     try {
-        // 更新子分類選中狀態
-        document.querySelectorAll('.subcategory-item').forEach(item => {
-            item.classList.remove('active');
-        });
+        document.querySelectorAll('.subcategory-item').forEach(x => x.classList.remove('active'));
         document.querySelector(`[data-subcategory-id="${subcategoryId}"]`)?.classList.add('active');
-        
-        // 獲取該子分類的書籍
+
         const books = await fetchBooksBySubcategory(subcategoryId);
-        
-        // 更新標題
         const sectionTitle = document.getElementById('sectionTitle');
-        if (sectionTitle) {
-            sectionTitle.textContent = `${subcategoryName}`;
-        }
-        
-        // 更新當前過濾器
-        currentFilter = { type: 'subcategory', id: subcategoryId, books: books };
+        if (sectionTitle) sectionTitle.textContent = subcategoryName;
+
+        currentFilter = { type: 'subcategory', id: subcategoryId, books };
         currentPage = 1;
-        
-        // 渲染書籍
         renderFilteredBooks(books, 1);
-        
-        // 平滑滾動到書籍區
-        document.querySelector('.all-books-section')?.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-        });
-        
+
+        document.querySelector('.all-books-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (error) {
-        console.error('Error fetching subcategory books:', error);
+        console.error(error);
         showToast('載入分類書籍失敗');
     } finally {
         showLoading(false);
     }
 }
 
-// ========== 推薦書籍渲染 ==========
+// ========== 推薦書籍 ==========
 function renderRecommendedBooks(books) {
-    const recommendedContainer = document.getElementById('recommendedBooks');
-    if (!recommendedContainer) return;
-    
-    recommendedContainer.innerHTML = '';
-    
-    // 最多顯示 3 本
-    const displayBooks = books.slice(0, 3);
-    
-    displayBooks.forEach((book, index) => {
-        const bookCard = createBookCard(book, index);
-        recommendedContainer.appendChild(bookCard);
-    });
+    const container = document.getElementById('recommendedBooks');
+    if (!container) return;
+    container.innerHTML = '';
+    books.slice(0, 3).forEach((book, index) => container.appendChild(createBookCard(book, index)));
 }
 
-// ========== 全部書籍渲染 ==========
+// ========== 全部書籍 ==========
 function renderAllBooks(page) {
     const sectionTitle = document.getElementById('sectionTitle');
-    if (sectionTitle) {
-        sectionTitle.textContent = '全部書籍';
-    }
-    
-    // 清除子分類選中狀態
-    document.querySelectorAll('.subcategory-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
+    if (sectionTitle) sectionTitle.textContent = '全部書籍';
+
+    document.querySelectorAll('.subcategory-item').forEach(x => x.classList.remove('active'));
     currentFilter = { type: 'all', id: null };
     currentPage = page;
-    
     renderFilteredBooks(allBooks, page);
 }
 
-/**
- * 渲染過濾後的書籍
- */
 function renderFilteredBooks(books, page) {
-    const allBooksContainer = document.getElementById('allBooks');
-    if (!allBooksContainer) return;
-    
-    allBooksContainer.innerHTML = '';
-    
-    // 分頁處理
+    const container = document.getElementById('allBooks');
+    if (!container) return;
+
+    container.innerHTML = '';
     const paginatedBooks = paginateData(books, page, ITEMS_PER_PAGE);
-    
-    if (paginatedBooks.length === 0) {
-        allBooksContainer.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem;">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                <p style="font-size: 1.2rem;">此分類暫無書籍</p>
-            </div>
-        `;
+
+    if (!paginatedBooks.length) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:3rem; color: var(--text-muted);"><p>此分類暫無書籍</p></div>`;
         document.getElementById('pagination').innerHTML = '';
         return;
     }
-    
-    paginatedBooks.forEach((book, index) => {
-        const bookCard = createBookCard(book, index);
-        allBooksContainer.appendChild(bookCard);
-    });
-    
-    // 渲染分頁按鈕
+
+    paginatedBooks.forEach((book, index) => container.appendChild(createBookCard(book, index)));
+
     const totalPages = getTotalPages(books.length, ITEMS_PER_PAGE);
-    createPaginationButtons(page, totalPages, (newPage) => {
-        if (currentFilter.type === 'all') {
-            renderAllBooks(newPage);
-        } else {
+    createPaginationButtons(page, totalPages, newPage => {
+        if (currentFilter.type === 'all') renderAllBooks(newPage);
+        else {
             currentPage = newPage;
             renderFilteredBooks(currentFilter.books, newPage);
         }
-        
-        // 滾動到頂部
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTop();
     });
 }
 
-// ========== 平滑滾動到頁面頂部（供分頁使用）==========
+// ========== 分頁滾動 ==========
 function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// ========== 登入頁面按鈕綁定 ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const loginPageBtn = document.getElementById('loginPageBtn'); // login.html 的登入按鈕
+    if (loginPageBtn) {
+        loginPageBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginUser();
+        });
+
+        // 支援 Enter 鍵登入
+        const accountInput = document.getElementById('account');
+        const passwordInput = document.getElementById('password');
+        if (accountInput && passwordInput) {
+            [accountInput, passwordInput].forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') loginUser();
+                });
+            });
+        }
+    }
+});

@@ -5,7 +5,7 @@ $.ajaxSetup({
 
 // 讀取登入者
 function loadUser() {
-    $.get("/api/members/who")
+    $.get("/api/auth/who")
         .done(res => {
             $("#navUser").text(`Hi, ${res.name}`);
         })

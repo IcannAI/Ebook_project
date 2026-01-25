@@ -1,9 +1,6 @@
-// 所有 AJAX 都帶 Cookie
-$.ajaxSetup({ xhrFields: { withCredentials: true }, crossDomain: true });
-
-// 檢查登入
+// 檢查登入（使用帶認證的 API 工具）
 function checkRealLogin() {
-    $.get("/api/members/who")
+    getWithAuth("http://localhost:8080/api/auth/who")
         .done(() => loadCart())
         .fail(() => {
             alert("請先登入會員");
@@ -14,7 +11,7 @@ function checkRealLogin() {
 // 強制登出
 function forceLogout() {
     if (!confirm("確定要登出嗎？")) return;
-    $.post("/api/members/logout").always(() => {
+    postWithAuth("http://localhost:8080/api/members/logout", {}).always(() => {
         localStorage.clear();
         sessionStorage.clear();
         location.href = "login.html";
@@ -23,7 +20,7 @@ function forceLogout() {
 
 // 載入購物車
 function loadCart() {
-    $.get("/api/members/cart")
+    getWithAuth("http://localhost:8080/api/members/cart")
         .done(data => {
             const items = data.items || [];
             const total = data.totalAmount || 0;
@@ -106,12 +103,7 @@ function changeQty(itemId, diff) {
 
     recalcTotal();
 
-    $.ajax({
-        url: `/api/members/cart/${itemId}`,
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify({ quantity: qty })
-    });
+    putWithAuth(`http://localhost:8080/api/members/cart/${itemId}`, { quantity: qty });
 }
 
 // === 重新計算總金額 ===
@@ -129,12 +121,9 @@ function recalcTotal() {
 function removeItem(itemId) {
     if (!confirm("確定要從購物車移除此商品嗎？")) return;
 
-    $.ajax({
-        url: `/api/members/cart/${itemId}`,
-        type: "DELETE",
-        success: () => loadCart(),
-        error: () => alert("移除失敗")
-    });
+    deleteWithAuth(`http://localhost:8080/api/members/cart/${itemId}`)
+        .done(() => loadCart())
+        .fail(() => alert("移除失敗"));
 }
 
 // 格式化時間

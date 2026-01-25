@@ -1,4 +1,4 @@
-// 檢查登入
+// 檢查登入（共用登入檢查）
 checkLogin();
 
 // 強制登出
@@ -12,12 +12,12 @@ function forceLogout() {
 }
 
 // 載入訂單總金額
-$.get("/api/members/cart", data => {
+getWithAuth("http://localhost:8080/api/members/cart").done(data => {
     $("#total").text((data.totalAmount || 0).toLocaleString());
 });
 
 // 載入宅配地址
-$.get("/api/members/shipping", list => {
+getWithAuth("http://localhost:8080/api/members/shipping").done(list => {
     if (list && list.length > 0) {
         const addr = list.find(a => a.method_name?.includes("住家")) || list[0];
         $("#homeAddress").val(`${addr.method_name || '住家'}：${addr.address}`);
@@ -27,7 +27,7 @@ $.get("/api/members/shipping", list => {
 });
 
 // 載入付款方式
-$.get('http://localhost:8080/api/payment-methods', function(methods) {
+getWithAuth("http://localhost:8080/api/payment-methods").done(function(methods) {
     const select = $('#payment');
     select.empty();
     methods.forEach(method => {
@@ -58,7 +58,7 @@ function checkout() {
     }
 
     if (shippingType === "home") {
-        $.get("/api/members/shipping", list => {
+        getWithAuth("http://localhost:8080/api/members/shipping").done(list => {
             if (!list || list.length === 0) {
                 alert("尚未設定宅配地址！");
                 setTimeout(() => location.href = "shipping-address.html", 1000);
@@ -72,6 +72,7 @@ function checkout() {
     }
 }
 
+//結帳
 function submitOrder(shippingInfoId, paymentMethod, storeType = null) {
     const data = {
         shippingInfoId,
@@ -79,7 +80,7 @@ function submitOrder(shippingInfoId, paymentMethod, storeType = null) {
         storeType
     };
 
-    $.post("/api/members/orders/checkout", data)
+    postWithAuth("http://localhost:8080/api/members/orders/checkout", data)
         .done(res => {
             alert(`訂單成立成功！\n訂單編號：${res.id}`);
             setTimeout(() => location.href = "order-list.html", 1500);

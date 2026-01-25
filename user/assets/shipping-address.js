@@ -4,7 +4,7 @@ let editingId = null;
 
 // 載入地址
 function loadAddresses() {
-    $.get("/api/members/shipping", function(list) {
+    getWithAuth("http://localhost:8080/api/members/shipping").done(function(list) {
         if (!list || list.length === 0) {
             $("#addressList").html("<p style='color:#888;text-align:center;margin:30px 0;'>尚未新增任何地址</p>");
             return;
@@ -57,24 +57,21 @@ function saveAddress() {
     };
 
     if (editingId) {
-        $.ajax({
-            url: `/api/members/shipping/${editingId}`,
-            type: "PUT",
-            contentType: "application/json",
-            data: JSON.stringify(data),
-            success: () => {
+        putWithAuth(`http://localhost:8080/api/members/shipping/${editingId}`, data)
+            .done(() => {
                 alert("地址修改成功！");
                 resetForm();
                 loadAddresses();
-            },
-            error: () => alert("修改失敗，請稍後再試")
-        });
+            })
+            .fail(() => alert("修改失敗，請稍後再試"));
     } else {
-        $.post("/api/members/shipping", data, () => {
-            alert("地址新增成功！");
-            resetForm();
-            loadAddresses();
-        }).fail(() => alert("新增失敗，請檢查欄位"));
+        postWithAuth("http://localhost:8080/api/members/shipping", data)
+            .done(() => {
+                alert("地址新增成功！");
+                resetForm();
+                loadAddresses();
+            })
+            .fail(() => alert("新增失敗，請檢查欄位"));
     }
 }
 
@@ -82,15 +79,12 @@ function saveAddress() {
 function deleteAddress(id) {
     if (!confirm("確定要刪除這筆地址嗎？")) return;
 
-    $.ajax({
-        url: `/api/members/shipping/${id}`,
-        type: "DELETE",
-        success: () => {
+    deleteWithAuth(`http://localhost:8080/api/members/shipping/${id}`)
+        .done(() => {
             alert("地址已刪除");
             loadAddresses();
-        },
-        error: () => alert("刪除失敗")
-    });
+        })
+        .fail(() => alert("刪除失敗"));
 }
 
 // 清除表單

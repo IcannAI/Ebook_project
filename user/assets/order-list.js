@@ -84,10 +84,10 @@ function renderOrders(orders) {
 
 // 載入訂單列表
 function loadOrders(status = -1) {
-    let url = "/api/members/orders";
+    let url = "http://localhost:8080/api/members/orders";
     if (status !== -1) url += `?status=${status}`;
 
-    $.get(url)
+    getWithAuth(url)
         .done(res => renderOrders(res))
         .fail(xhr => {
             const msg = xhr.responseJSON?.message || "載入訂單失敗";

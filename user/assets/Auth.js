@@ -6,22 +6,17 @@
 // ========== 認證檢查 ==========
 
 /**
- * 檢查登入狀態
- * 若未登入則自動導向登入頁
- * @param {boolean} redirectIfNotLogin - 是否在未登入時自動跳轉 (預設: true)
- * @returns {Promise<Object|null>} 登入的會員資料，若未登入則返回 null
+ * 修正 checkLoginStatus 路徑與邏輯
  */
 function checkLoginStatus(redirectIfNotLogin = true) {
-    return $.get("/api/members/who")
-        .then(function(member) {
-            // 登入成功，返回會員資料
-            return member;
+    return fetchWithAuth("/api/auth/who")
+        .then(function(memberDTO) {
+            return memberDTO; // 這裡拿到的是後端回傳的 MemberDTO
         })
         .fail(function(xhr) {
             if (xhr.status === 401 && redirectIfNotLogin) {
-                // 未登入，導向登入頁
-                alert("請先登入");
-                redirectToLogin();
+                localStorage.removeItem("authToken"); // 清除無效 Token
+                window.location.href = "login.html";
             }
             return null;
         });
@@ -55,25 +50,28 @@ function redirectAfterLogin() {
 // ========== 登出功能 ==========
 
 /**
- * 登出功能
- * 清除 Session 和本地儲存，並跳轉到登入頁
- * @param {boolean} showConfirm - 是否顯示確認對話框 (預設: false)
+ * 完整登出邏輯：清除所有存儲並導回登入頁
  */
-function logout(showConfirm = false) {
-    if (showConfirm && !confirm("確定要登出嗎？")) {
-        return;
-    }
+function handleLogout() {
+    // 1. 清除 JWT Token (localStorage)
+    localStorage.removeItem("authToken");
+    
+    // 2. 清除會員資訊快取 (sessionStorage)
+    sessionStorage.clear();
+    
+    // 3. 視情況清除 Cookie (若有使用)
+    document.cookie = "JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-    $.post("/api/members/logout")
-        .always(function() {
-            // 清除所有本地儲存
-            localStorage.clear();
-            sessionStorage.clear();
-            
-            // 跳轉到登入頁
-            window.location.href = "login.html";
-        });
+    alert("您已成功登出");
+    window.location.href = "login.html";
 }
+
+// 綁定頁面上的登出按鈕
+$(document).on("click", "#logoutBtn", function(e) {
+    e.preventDefault();
+    handleLogout();
+});
+
 
 /**
  * 強制登出 (不需確認)
@@ -162,28 +160,22 @@ function showApiError(xhr, defaultMsg = "操作失敗") {
 // ========== 帶認證的 Fetch ==========
 
 /**
- * 帶認證的 Fetch (使用 jQuery AJAX 實現)
- * 自動攜帶 Session Cookie，並處理常見錯誤
- * @param {string} url - API 路徑
- * @param {Object} options - 請求選項
- * @returns {Promise} jQuery Promise 物件
+ * 統一 API 請求工具：從 localStorage 取得 Token 並放入 Header
  */
 function fetchWithAuth(url, options = {}) {
+    const token = localStorage.getItem("authToken");
+    
     const ajaxOptions = {
         url: url,
         type: options.method || 'GET',
-        contentType: options.contentType || 'application/json',
-        data: options.body || null,
-        xhrFields: {
-            withCredentials: true  // 攜帶 Cookie/Session
-        }
+        contentType: 'application/json',
+        headers: {
+            // 注入 JWT Token
+            'Authorization': token ? `Bearer ${token}` : ''
+        },
+        data: options.body || null
     };
-    
-    // 如果有自訂 headers
-    if (options.headers) {
-        ajaxOptions.headers = options.headers;
-    }
-    
+
     return $.ajax(ajaxOptions);
 }
 
@@ -238,7 +230,7 @@ function deleteWithAuth(url) {
  * @returns {Promise<Object|null>} 會員資料或 null
  */
 function getCurrentMember() {
-    return $.get("/api/members/who")
+    return $.get("/api/auth/who")
         .then(function(member) {
             return member;
         })
@@ -354,7 +346,7 @@ if (typeof module !== 'undefined' && module.exports) {
         checkLoginStatus,
         redirectToLogin,
         redirectAfterLogin,
-        logout,
+        handleLogout,
         forceLogout,
         handleApiError,
         showApiError,

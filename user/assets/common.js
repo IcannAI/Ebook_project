@@ -65,10 +65,11 @@ function updateNavbarUser() {
 }
 
 // =============================
-// AJAX 全域設定 (附帶 Cookie)
+// AJAX 全域設定
 // =============================
 $.ajaxSetup({
-    xhrFields: { withCredentials: true }
+    // JWT 模式：不需要帶 Cookie。若 withCredentials=true，後端又回 ACAO:* 會被瀏覽器擋下（CORS）
+    xhrFields: { withCredentials: false }
 });
 
 // =============================

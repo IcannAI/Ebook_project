@@ -3,7 +3,7 @@
 // ==========================
 function logoutAndRedirect() {
     if (!confirm('確定要登出嗎？')) return;
-    $.post("/api/members/logout")
+    postWithAuth("http://localhost:8080/api/members/logout", {})
         .always(() => {
             localStorage.clear();
             sessionStorage.clear();
@@ -60,7 +60,7 @@ function checkLoginAndLoadProfile() {
     $('#loadingIndicator').show();
     $('#profileForm').hide();
 
-    $.get("/api/members/who")
+    getWithAuth("http://localhost:8080/api/auth/who")
         .done(m => {
             $('#id').val(m.id);
             $('#account').val(m.account);
@@ -111,12 +111,7 @@ function updateProfile() {
 
     $('#saveBtn').prop('disabled', true).text('儲存中...');
 
-    $.ajax({
-        url: `/api/members/${id}`,
-        type: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(data)
-    })
+    putWithAuth(`http://localhost:8080/api/members/${id}`, data)
     .done(() => {
         showAlert('個人資料已更新！', 'success');
         checkLoginAndLoadProfile();
@@ -151,12 +146,7 @@ function changePassword() {
 
     $('#pwdBtn').prop('disabled', true).text('更新中...');
 
-    $.ajax({
-        url: `/api/members/${id}`,
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify(data)
-    })
+    putWithAuth(`http://localhost:8080/api/members/${id}`, data)
     .done(() => {
         showAlert("密碼已更新！即將登出重新登入", "success");
         setTimeout(() => {
@@ -186,10 +176,7 @@ function deleteAccount() {
 
     const id = $('#id').val();
 
-    $.ajax({
-        url: `/api/members/${id}`,
-        type: "DELETE"
-    })
+    deleteWithAuth(`http://localhost:8080/api/members/${id}`)
     .done(() => {
         showAlert('帳號已刪除', 'success');
         setTimeout(() => {
