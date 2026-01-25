@@ -41,7 +41,6 @@ public class ShippingService {
         info.setUser(user);
         info.setMethodName(methodName);
         info.setAddress(address);
-        info.setPhone(phone);
         info = repository.save(info);
         return toDTO(info);
     }
@@ -59,7 +58,6 @@ public class ShippingService {
         dto.setId(info.getId());
         dto.setMethodName(info.getMethodName());
         dto.setAddress(info.getAddress());
-        dto.setPhone(info.getPhone());
         return dto;
     }
 }

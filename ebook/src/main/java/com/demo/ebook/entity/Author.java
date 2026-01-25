@@ -18,5 +18,6 @@ public class Author {
     private String bio;
 
     @ManyToMany(mappedBy = "authors")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Set<Book> books;
 }

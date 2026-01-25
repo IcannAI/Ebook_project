@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,8 +59,10 @@ public class CartService {
         cartItemRepository.deleteById(itemId);
     }
 
-    public Double getTotal() {
-        return getCartItems().stream().mapToDouble(CartItemDTO::getSubtotal).sum();
+    public BigDecimal getTotal() {
+        return getCartItems().stream()
+            .map(CartItemDTO::getSubtotal)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private CartItemDTO toDTO(CartItem item) {
@@ -69,7 +72,9 @@ public class CartService {
         dto.setBookTitle(item.getBook().getTitle());
         dto.setPrice(item.getBook().getPrice());
         dto.setQuantity(item.getQuantity());
-        dto.setSubtotal(item.getQuantity() * item.getBook().getPrice());
+        // subtotal = price * quantity
+        BigDecimal subtotal = item.getBook().getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+        dto.setSubtotal(subtotal);
         dto.setAddedAt(item.getAddedAt());
         return dto;
     }

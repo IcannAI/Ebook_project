@@ -19,7 +19,4 @@ public class UserShippingInfo {
     private String methodName;   // 例如：住家、公司、學校
 
     private String address;      // 完整地址
-
-    // 可選：新增電話欄位（如果結帳時需要）
-    private String phone;
 }

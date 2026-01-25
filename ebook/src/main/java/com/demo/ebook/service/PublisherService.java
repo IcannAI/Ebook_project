@@ -83,9 +83,6 @@ public class PublisherService {
     private void copyFromDTO(Publisher entity, PublisherDTO dto) {
         entity.setName(dto.getName());
         entity.setPhone(dto.getPhone());
-        entity.setAddress(dto.getAddress());
-        entity.setEmail(dto.getEmail());
-        entity.setWebsite(dto.getWebsite());
     }
 
     private PublisherDTO toDTO(Publisher entity) {
@@ -93,9 +90,6 @@ public class PublisherService {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setPhone(entity.getPhone());
-        dto.setAddress(entity.getAddress());
-        dto.setEmail(entity.getEmail());
-        dto.setWebsite(entity.getWebsite());
         return dto;
     }
 }

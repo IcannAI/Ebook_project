@@ -42,12 +42,11 @@ public class AuthController {
 	 * 取得目前登入中的會員資料 GET /api/auth/who 若尚未登入，回傳 401
 	 */
 	@GetMapping("/who")
-	public ResponseEntity<MemberDTO> getWho(
-			@RequestHeader(value = "Authorization", required = false) String authHeader) {
+	public ResponseEntity<MemberDTO> getWho(@RequestHeader("Authorization") String authHeader) {
 		// 基本檢查
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
+	    }
 		// 擷取 Token (去掉 "Bearer " 字串)
 		String token = authHeader.substring(7);
 		String account = jwtUtil.extractUsername(token);

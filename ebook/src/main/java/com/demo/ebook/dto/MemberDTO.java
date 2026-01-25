@@ -11,7 +11,7 @@ public class MemberDTO {
     private String email;
     private String phone;
     private String address;
-    private Integer status;
+    private Byte status;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
 }

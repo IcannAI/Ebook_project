@@ -4,16 +4,17 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.math.BigDecimal;
 
 @Data
 public class BookDTO {
     private Integer id;
     private String title;
     private String isbn;
-    private Double price;      // 改用Double
+    private BigDecimal price;  // BigDecimal for price
     private String description;
     private String coverImage;
-    private Integer status;
+    private Byte status; // 0: 下架, 1: 上架
     private Integer stock;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -24,5 +25,5 @@ public class BookDTO {
     
     // 新增欄位（與 Entity 同步）
     private LocalDate publishDate;  
-    private Double discount;   // 折扣係數
+    private BigDecimal discount; // BigDecimal for discount
 }

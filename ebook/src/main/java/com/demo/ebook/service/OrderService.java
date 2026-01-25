@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.math.BigDecimal;
 
 @Service
 public class OrderService {
@@ -61,15 +62,15 @@ public class OrderService {
 
         PaymentMethod payment = paymentMethodRepository.findByName(request.getPaymentMethod()).orElseThrow(() -> new RuntimeException("Invalid payment"));
 
-        double cartTotal = cartService.getTotal();
-        double shippingFee = "home".equals(request.getShippingType()) ? 80 : 60;
-        double total = cartTotal + shippingFee;
+        java.math.BigDecimal cartTotal = cartService.getTotal();
+        java.math.BigDecimal shippingFee = "home".equals(request.getShippingType()) ? new java.math.BigDecimal("80") : new java.math.BigDecimal("60");
+        java.math.BigDecimal total = cartTotal.add(shippingFee);
 
         Order order = new Order();
         order.setUser(user);
         order.setShippingInfo(shipping);
         order.setTotalAmount(total);
-        order.setStatus(0); // Pending
+        order.setStatus((byte) 1); 
         order.setCreatedAt(LocalDateTime.now());
         order.setUpdatedAt(LocalDateTime.now());
         order.setPaymentMethod(payment);
@@ -82,7 +83,7 @@ public class OrderService {
             detail.setBook(cartItem.getBook());
             detail.setQuantity(cartItem.getQuantity());
             detail.setPriceAtMoment(cartItem.getBook().getPrice());
-            detail.setSubtotal(cartItem.getQuantity() * detail.getPriceAtMoment());
+            detail.setSubtotal(detail.getPriceAtMoment().multiply(BigDecimal.valueOf(cartItem.getQuantity())));
             orderDetailRepository.save(detail);
         }
 

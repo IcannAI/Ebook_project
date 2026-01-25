@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Service
@@ -116,7 +117,8 @@ public class BookService {
         }
         
         //接收時驗證折扣係數
-        if (dto.getDiscount() != null && (dto.getDiscount() < 0 || dto.getDiscount() > 1)) {
+        if (dto.getDiscount() != null &&
+            (dto.getDiscount().compareTo(BigDecimal.ZERO) < 0 || dto.getDiscount().compareTo(BigDecimal.ONE) > 0)) {
             throw new IllegalArgumentException("折扣係數必須在 0~1 之間");
         }
         

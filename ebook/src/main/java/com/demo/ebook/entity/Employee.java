@@ -22,7 +22,7 @@ public class Employee {
 
     private String role;  // ADMIN or STAFF
 
-    private Integer status;
+    private Byte status; // 0: 不在線, 1: 在線
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

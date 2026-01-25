@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"}) // 支持 Vite/React 常見端口
+@CrossOrigin(origins = "*") // 開發階段允許所有前端來源（含 http://localhost:5051）
 public class CategoryController {
 
     @Autowired

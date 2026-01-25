@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -23,9 +24,9 @@ public class Order {
     private UserShippingInfo shippingInfo;
 
     @Column(name = "total_amount")
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
-    private Integer status; // 0: pending, 1: paid, etc.
+    private Byte status; // 0: pending, 1: paid, etc.
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

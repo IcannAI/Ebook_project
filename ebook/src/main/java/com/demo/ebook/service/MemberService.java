@@ -33,11 +33,10 @@ public class MemberService {
 		Member member = new Member();
 		member.setAccount(request.getAccount());
 		member.setPassword(request.getPassword()); // 直接存明文
-		member.setOauthProvider("local"); // Set as local
 		member.setName(request.getName());
 		member.setEmail(request.getEmail());
 		member.setPhone(request.getPhone());
-		member.setStatus(1);
+		member.setStatus((byte) 1);
 		member.setCreatedAt(LocalDateTime.now());
 		member = memberRepository.save(member);
 		return toDTO(member);
@@ -45,25 +44,33 @@ public class MemberService {
 
 	// Login登入
 	public LoginResponse login(LoginRequest request) {
-		Member member = memberRepository.findByAccount(request.getAccount())
-				.orElseThrow(() -> new RuntimeException("Invalid credentials"));
-		if (!request.getPassword().equals(member.getPassword())) { // 直接比對明文
-			throw new RuntimeException("Invalid credentials");
-		}
-		member.setLastLogin(LocalDateTime.now());
-		memberRepository.save(member);
+    	Member member = memberRepository.findByAccount(request.getAccount())
+            .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
-		String token = jwtUtil.generateToken(member.getAccount(), "user", List.of("ROLE_USER"));
+    	if (!request.getPassword().equals(member.getPassword())) {
+        	throw new RuntimeException("Invalid credentials");
+    	}
 
-		LoginResponse response = new LoginResponse();
-		response.setToken(token);
-		response.setMember(toDTO(member));
-		return response;
+    	member.setLastLogin(LocalDateTime.now());
+    	memberRepository.save(member);
+
+    	String token = jwtUtil.generateToken(
+        	member.getAccount(),
+       		"user",
+        	List.of("ROLE_USER")
+    );
+
+    	LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setMember(toDTO(member));
+        return response;
 	}
+
 
 	// Get Profile獲取帳號
 	public MemberDTO getProfile(String account) {
-		Member member = memberRepository.findByAccount(account).orElseThrow();
+		Member member = memberRepository.findByAccount(account)
+				.orElseThrow(() -> new RuntimeException("Member not found: " + account));
 		return toDTO(member);
 	}
 

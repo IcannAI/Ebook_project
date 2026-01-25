@@ -1,7 +1,9 @@
 package com.demo.ebook.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_details")
@@ -22,7 +24,7 @@ public class OrderDetail {
     private Integer quantity;
 
     @Column(name = "price_at_moment")
-    private Double priceAtMoment;
+    private BigDecimal priceAtMoment;
 
-    private Double subtotal;
+    private BigDecimal subtotal;
 }

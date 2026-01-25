@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/books")
-@CrossOrigin(origins = "http://localhost:3000") // 調整為前端端口
+@CrossOrigin(origins = "*") // 開發階段允許所有前端來源（含 http://localhost:5051）
 public class BookController {
     @Autowired
     private BookService bookService;

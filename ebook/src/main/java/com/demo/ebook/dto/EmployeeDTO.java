@@ -10,7 +10,7 @@ public class EmployeeDTO {
     private String name;
     private String email;
     private String role;
-    private Integer status;
+    private Byte status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

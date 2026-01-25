@@ -35,7 +35,7 @@ public class EmployeeService {
         employee.setName(request.getName());
         employee.setEmail(request.getEmail());
         employee.setRole(request.getRole() != null ? request.getRole() : "ADMIN");  // Default to ADMIN
-        employee.setStatus(1);
+        employee.setStatus((byte) 1);
         employee.setCreatedAt(LocalDateTime.now());
         employee.setUpdatedAt(LocalDateTime.now());
         employee = employeeRepository.save(employee);

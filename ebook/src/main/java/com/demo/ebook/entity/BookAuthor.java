@@ -7,15 +7,17 @@ import lombok.Data;
 @Table(name = "book_authors")
 @Data
 public class BookAuthor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+
+    @EmbeddedId
+    private BookAuthorId id;
 
     @ManyToOne
+    @MapsId("bookId")
     @JoinColumn(name = "book_id")
     private Book book;
 
     @ManyToOne
+    @MapsId("authorId")
     @JoinColumn(name = "author_id")
     private Author author;
 }

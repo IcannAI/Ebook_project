@@ -14,11 +14,7 @@ public class Member {
 
     private String account;
 
-    @Column(name = "oauth_provider")
-    private String oauthProvider;
-
-    @Column(name = "oauth_id")
-    private String password;  // Treating oauth_id as password field, will store hashed password
+    private String password;  // 密碼欄位
 
     private String name;
 
@@ -28,7 +24,7 @@ public class Member {
 
     private String address;
 
-    private Integer status;
+    private Byte status;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
